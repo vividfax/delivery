@@ -94,9 +94,10 @@ class Peg {
     displayEye(x, y) {
 
         if (this.blink) { // blink
-            fill(palette.black);
+            fill(palette.mid);
+            if (player.pegNumber == this.number) fill(palette.dark);
             ellipse(0, 0, 60);
-            fill(palette.white);
+            fill(palette.black);
             rect(0, 0, 60, 5, 60);
             // rect(-20, 10, 5, 20, 60);
             // rect(0, 10, 5, 20, 60);
