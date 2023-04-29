@@ -57,6 +57,7 @@ class Hole {
         translate(width/2, height/2);
         translate(this.x, this.y);
         fill(palette.white);
+        if (pegs[this.number].solved) fill(palette.mid);
         this.displayShape(this.shapes.first);
         this.displayShape(this.shapes.second);
         this.displayShape(this.shapes.third);

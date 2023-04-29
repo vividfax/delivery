@@ -9,6 +9,8 @@ class Peg {
 
         this.scale = 0;
         this.maxScale = 0.7;
+
+        this.solved = false;
     }
 
     update() {
@@ -33,6 +35,8 @@ class Peg {
 
     display() {
 
+        if (this.solved) return;
+
         this.displayHole(0, 0);
         this.displayHole(-worldWidth, -worldHeight);
         this.displayHole(-worldWidth, 0);
@@ -54,7 +58,6 @@ class Peg {
         translate(width/2, height/2);
         translate(this.x, this.y);
         fill(palette.black);
-        if (this.solved) fill(palette.mid);
         if (player.pegNumber == this.number) fill(palette.dark);
         this.displayShape(this.shapes.first);
         this.displayShape(this.shapes.second);
