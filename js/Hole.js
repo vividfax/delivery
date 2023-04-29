@@ -13,13 +13,18 @@ class Hole {
         this.randoms = [];
         this.randomInt = 0;
         this.getRandoms();
+
+        this.solved = false;
     }
 
     update() {
 
+        if (this.solved) return;
+
         if (this.number == player.pegNumber && this.fit(player)) {
             player.pegNumber = -1;
             pegs[this.number].solved = true;
+            this.solved = true;
             addShape();
             player.newWobble();
         }
