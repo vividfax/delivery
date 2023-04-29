@@ -38,7 +38,6 @@ function draw() {
     buttonsPressed();
     stickMoved();
 
-    // background(palette.light);
     image(noiseLayers[int(frameCount/10)%noiseLayers.length], 0, 0);
 
     translate(-player.x, -player.y);

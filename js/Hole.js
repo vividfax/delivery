@@ -36,7 +36,7 @@ class Hole {
 
     fit(collider) {
 
-        if (dist(collider.x, collider.y, this.x, this.y) < 35) {
+        if (dist(collider.x, collider.y, this.x, this.y) < 50) {
             return true;
         }
     }
@@ -86,7 +86,7 @@ class Hole {
 
         if (pegs[this.number].solved) {
 
-            for (let i = 1; i < 10; i++) {
+            for (let i = 1; i < 5; i++) {
                 this.displayShape(this.shapes.first, i);
                 this.displayShape(this.shapes.second, i);
                 this.displayShape(this.shapes.third, i);
@@ -116,7 +116,7 @@ class Hole {
 
         if (pegs[this.number].solved) {
 
-            let s = 1 - tier*0.1;
+            let s = 1 - tier*0.2;
 
             scale(s);
             fill(this.randoms[this.randomInt], this.randoms[this.randomInt+1], this.randoms[this.randomInt+2]);
