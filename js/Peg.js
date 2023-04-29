@@ -8,7 +8,7 @@ class Peg {
         this.number = number;
 
         this.scale = 0;
-        this.maxScale = 0.7;
+        this.maxScale = 0.5;
 
         this.solved = false;
     }
@@ -37,19 +37,19 @@ class Peg {
 
         if (this.solved) return;
 
-        this.displayHole(0, 0);
-        this.displayHole(-worldWidth, -worldHeight);
-        this.displayHole(-worldWidth, 0);
-        this.displayHole(-worldWidth, worldHeight);
-        this.displayHole(0, -worldHeight);
-        this.displayHole(0, 0);
-        this.displayHole(0, worldHeight);
-        this.displayHole(worldWidth, -worldHeight);
-        this.displayHole(worldWidth, 0);
-        this.displayHole(worldWidth, worldHeight);
+        this.displayPeg(0, 0);
+        this.displayPeg(-worldWidth, -worldHeight);
+        this.displayPeg(-worldWidth, 0);
+        this.displayPeg(-worldWidth, worldHeight);
+        this.displayPeg(0, -worldHeight);
+        this.displayPeg(0, 0);
+        this.displayPeg(0, worldHeight);
+        this.displayPeg(worldWidth, -worldHeight);
+        this.displayPeg(worldWidth, 0);
+        this.displayPeg(worldWidth, worldHeight);
     }
 
-    displayHole(x, y) {
+    displayPeg(x, y) {
 
         push();
         translate(x, y);
@@ -62,6 +62,9 @@ class Peg {
         this.displayShape(this.shapes.first);
         this.displayShape(this.shapes.second);
         this.displayShape(this.shapes.third);
+
+        scale(this.scale);
+        this.displayEye(x, y);
         pop();
 
         pop();
@@ -75,5 +78,33 @@ class Peg {
         rotate(shape[5]);
         rect(0, 0, shape[2], shape[3], shape[4]);
         pop();
+    }
+
+    displayEye(x, y) {
+
+        let playerX = player.x;
+        let playerY = player.y;
+
+        if (x > 0) {
+            playerX -= worldWidth;
+        } else if (x < 0) {
+            playerX += worldWidth;
+        }
+
+        if (y > 0) {
+            playerY -= worldHeight;
+        } else if (y < 0) {
+            playerY += worldHeight;
+        }
+        let vec = createVector(playerX-this.x, playerY-this.y).normalize().mult(8);
+
+        if (player.pegNumber == this.number) vec = createVector(player.velocityX, player.velocityY).normalize().mult(8);
+
+        fill(palette.white);
+        ellipse(0, 0, 60);
+
+        translate(vec.x, vec.y);
+        fill(palette.black);
+        ellipse(0, 0, 45);
     }
 }

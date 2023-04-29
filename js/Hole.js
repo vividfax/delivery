@@ -8,7 +8,7 @@ class Hole {
         this.number = number;
 
         this.scale = 0;
-        this.maxScale = 0.7;
+        this.maxScale = 0.5;
     }
 
     update() {
@@ -35,20 +35,19 @@ class Hole {
 
     display() {
 
-        this.displayPeg(0, 0);
-        this.displayPeg(-worldWidth, -worldHeight);
-        this.displayPeg(-worldWidth, 0);
-        this.displayPeg(-worldWidth, worldHeight);
-        this.displayPeg(0, -worldHeight);
-        this.displayPeg(0, 0);
-        this.displayPeg(0, worldHeight);
-        this.displayPeg(worldWidth, -worldHeight);
-        this.displayPeg(worldWidth, 0);
-        this.displayPeg(worldWidth, worldHeight);
+        this.displayHole(0, 0);
+        this.displayHole(-worldWidth, -worldHeight);
+        this.displayHole(-worldWidth, 0);
+        this.displayHole(-worldWidth, worldHeight);
+        this.displayHole(0, -worldHeight);
+        this.displayHole(0, 0);
+        this.displayHole(0, worldHeight);
+        this.displayHole(worldWidth, -worldHeight);
+        this.displayHole(worldWidth, 0);
+        this.displayHole(worldWidth, worldHeight);
     }
 
-
-    displayPeg(x, y) {
+    displayHole(x, y) {
 
         push();
         translate(x, y);

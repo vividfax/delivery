@@ -13,8 +13,8 @@ let shapes = [];
 let holes = [];
 let pegs = [];
 
-let worldWidth = 2500;
-let worldHeight = 2500;
+let worldWidth = 2000;
+let worldHeight = 2000;
 let numberOfShapes = 5;
 
 function setup() {
