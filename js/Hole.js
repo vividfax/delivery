@@ -8,7 +8,7 @@ class Hole {
         this.number = number;
 
         this.scale = 0;
-        this.maxScale = 0.5;
+        this.maxScale = 0.6;
 
         this.randoms = [];
         this.randomInt = 0;

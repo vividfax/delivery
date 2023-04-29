@@ -17,12 +17,16 @@ let worldWidth = 2000;
 let worldHeight = 2000;
 let numberOfShapes = 5;
 
+let noiseLayers = [];
+
 function setup() {
 
     createCanvas(windowWidth, windowHeight);
     noStroke();
     angleMode(DEGREES);
     rectMode(CENTER);
+
+    createBackgrounds();
 
     setupController();
 
@@ -34,7 +38,8 @@ function draw() {
     buttonsPressed();
     stickMoved();
 
-    background(palette.light);
+    // background(palette.light);
+    image(noiseLayers[int(frameCount/10)%noiseLayers.length], 0, 0);
 
     translate(-player.x, -player.y);
     translate(-player.cameraX, -player.cameraY);
@@ -93,4 +98,30 @@ function addShape() {
 
     holes.push(new Hole(shapes[i], i));
     pegs.push(new Peg(shapes[i], i));
+}
+
+function createBackgrounds() {
+
+    let size = 10;
+    let layers = 10;
+
+    for (let i = 0; i < layers; i++) {
+        noiseLayers.push(createGraphics(width, height));
+    }
+
+    for (let h = 0; h < noiseLayers.length; h++) {
+
+        noiseLayers[h].noStroke();
+        noiseLayers[h].background(palette.light);
+        noiseLayers[h].fill("#9ED1AF");
+
+        for (let i = 0; i < width; i += size) {
+            for (let j = 0; j < height; j += size) {
+
+                if (random() < 0.5) {
+                    noiseLayers[h].rect(i, j, size);
+                }
+            }
+        }
+    }
 }
