@@ -26,8 +26,8 @@ class Player {
         let moveX = true;
         let moveY = true;
 
-        this.velocityX += controllerLX*1.5;
-        this.velocityY += controllerLY*1.5;
+        this.velocityX += controllerLX*2.5;
+        this.velocityY += controllerLY*2.5;
 
         // if (this.x+this.velocityX < this.radius/2 || this.x+this.velocityX > width-this.radius/2) moveX = false;
         // if (this.y+this.velocityY < this.radius/2 || this.y+this.velocityY > height-this.radius/2) moveY = false;
