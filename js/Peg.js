@@ -68,7 +68,7 @@ class Peg {
         push();
         translate(width/2, height/2);
         translate(this.x, this.y);
-        fill(palette.black);
+        fill(palette.mid);
         if (player.pegNumber == this.number) fill(palette.dark);
         this.displayShape(this.shapes.first);
         this.displayShape(this.shapes.second);

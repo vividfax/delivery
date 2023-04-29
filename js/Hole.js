@@ -23,6 +23,7 @@ class Hole {
             pegs[this.number].x = this.x;
             pegs[this.number].y = this.y;
             addShape();
+            player.newWobble();
         }
 
         if (this.scale < this.maxScale) {
@@ -66,8 +67,6 @@ class Hole {
         push();
         translate(width/2, height/2);
         translate(this.x, this.y);
-        fill(palette.white);
-        if (pegs[this.number].solved) fill(palette.mid);
 
         this.displayShape(this.shapes.first, 0);
         this.displayShape(this.shapes.second, 0);
@@ -113,7 +112,7 @@ class Hole {
             if (tier == 0) fill(palette.white);
 
         } else {
-            fill(palette.white);
+            fill(palette.black);
         }
         rect(0, 0, shape[2], shape[3], shape[4]);
     }
