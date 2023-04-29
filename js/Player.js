@@ -13,8 +13,8 @@ class Player {
         this.collisionDuration = 0;
         this.safeX = this.x;
         this.safeY = this.y;
-
-        this.hasKey = false;
+        this.collisionOff = false;
+        this.collisionOffFor = 0;
 
         this.pegNumber = -1;
         this.switchedPegRecently = false;
@@ -37,8 +37,57 @@ class Player {
             this.velocityY += controllerLY*4.5;
         }
 
-        // if (this.x+this.velocityX < this.radius/2 || this.x+this.velocityX > width-this.radius/2) moveX = false;
-        // if (this.y+this.velocityY < this.radius/2 || this.y+this.velocityY > height-this.radius/2) moveY = false;
+        let potentialPlayer = {
+            x: this.x + this.velocityX,
+            y: this.y + this.velocityY,
+            radius: this.radius
+        };
+
+        if (this.pegNumber >= 0 && !this.collisionOff) {
+
+            let collided = false;
+
+            for (let i = 0; i < holes.length; i++) {
+                if (holes[i].collide(potentialPlayer)) {
+
+                    let incidenceAngle = createVector(this.velocityX, this.velocityY).heading();
+                    let surfaceAngle = createVector(potentialPlayer.x - holes[i].x, potentialPlayer.y - holes[i].y).heading() + 90;
+                    let newAngle = angleReflect(incidenceAngle, surfaceAngle);
+
+                    let v = createVector(this.velocityX, this.velocityY);
+                    v.setHeading(newAngle);
+
+                    this.velocityX = v.x;
+                    this.velocityY = v.y;
+
+                    collided = true;
+
+                    this.velocityX *= 0.95;
+                    this.velocityY *= 0.95;
+
+                    break;
+                }
+            }
+
+            if (collided) {
+                this.collisionDuration++;
+
+                if (this.collisionDuration > 10) {
+                    this.collisionOff = true;
+                }
+            } else {
+                this.collisionDuration = 0;
+                this.safeX = this.x;
+                this.safeY = this.y;
+            }
+        } else if (this.collisionOff) {
+            this.collisionOffFor++;
+
+            if (this.collisionOffFor > 30) {
+                this.collisionOff = false;
+                this.collisionOffFor = 0;
+            }
+        }
 
         if (moveX) {
             this.x += this.velocityX;
@@ -172,4 +221,9 @@ class WobblyCircle {
 
         pop();
     }
+}
+
+function angleReflect(incidenceAngle, surfaceAngle) {
+    var a = surfaceAngle * 2 - incidenceAngle;
+    return a >= 360 ? a - 360 : a < 0 ? a + 360 : a;
 }

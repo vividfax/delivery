@@ -20,8 +20,6 @@ class Hole {
         if (this.number == player.pegNumber && this.fit(player)) {
             player.pegNumber = -1;
             pegs[this.number].solved = true;
-            pegs[this.number].x = this.x;
-            pegs[this.number].y = this.y;
             addShape();
             player.newWobble();
         }
@@ -33,7 +31,16 @@ class Hole {
 
     fit(collider) {
 
-        if (dist(collider.x, collider.y, this.x, this.y) < 20) {
+        if (dist(collider.x, collider.y, this.x, this.y) < 35) {
+            return true;
+        }
+    }
+
+    collide(collider) {
+
+        if (!pegs[this.number].solved) return;
+
+        if (dist(collider.x, collider.y, this.x, this.y) < 70) {
             return true;
         }
     }

@@ -14,6 +14,9 @@ class Peg {
 
         this.blink = false;
         this.blinkDuration = 0;
+
+        this.numberOfEyes = random([1, 2]);
+        this.eyeSpacing = random(35, 55);
     }
 
     update() {
@@ -75,7 +78,14 @@ class Peg {
         this.displayShape(this.shapes.third);
 
         scale(this.scale);
-        this.displayEye(x, y);
+
+        if (this.numberOfEyes == 1) {
+            this.displayEye(x, y, 0);
+        } else if (this.numberOfEyes == 2) {
+            this.displayEye(x, y, this.eyeSpacing);
+            this.displayEye(x, y, -this.eyeSpacing);
+        }
+
         pop();
 
         pop();
@@ -91,14 +101,14 @@ class Peg {
         pop();
     }
 
-    displayEye(x, y) {
+    displayEye(x, y, xOffset) {
 
         if (this.blink) { // blink
             fill(palette.mid);
             if (player.pegNumber == this.number) fill(palette.dark);
-            ellipse(0, 0, 60);
+            ellipse(xOffset, 0, 60);
             fill(palette.black);
-            rect(0, 0, 60, 5, 60);
+            rect(xOffset, 0, 60, 5, 60);
             // rect(-20, 10, 5, 20, 60);
             // rect(0, 10, 5, 20, 60);
             // rect(20, 10, 5, 20, 60);
@@ -119,15 +129,17 @@ class Peg {
         } else if (y < 0) {
             playerY += worldHeight;
         }
-        let vec = createVector(playerX-this.x, playerY-this.y).normalize().mult(8);
+        let vec = createVector(playerX-this.x-xOffset, playerY-this.y).normalize().mult(8);
 
         if (player.pegNumber == this.number) vec = createVector(player.velocityX, player.velocityY).normalize().mult(8);
 
         fill(palette.white);
-        ellipse(0, 0, 60);
+        ellipse(xOffset, 0, 60);
 
+        push();
         translate(vec.x, vec.y);
         fill(palette.black);
-        ellipse(0, 0, 45);
+        ellipse(xOffset, 0, 45);
+        pop();
     }
 }
