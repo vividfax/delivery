@@ -41,7 +41,7 @@ class Hole {
     getRandoms() {
 
         for (let i = 0; i < 3*10; i++) {
-            this.randoms.push(random(100, 255));
+            this.randoms.push(random(50, 255));
         }
     }
 
