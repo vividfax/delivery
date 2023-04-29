@@ -11,6 +11,9 @@ class Peg {
         this.maxScale = 0.6;
 
         this.solved = false;
+
+        this.blink = false;
+        this.blinkDuration = 0;
     }
 
     update() {
@@ -23,6 +26,14 @@ class Peg {
 
         if (this.scale < this.maxScale) {
             this.scale += 0.02;
+        }
+
+        if (this.blink) {
+            this.blinkDuration++;
+            if (this.blinkDuration > 10) this.blink = false;
+        } else if (random() < 0.005) {
+            this.blink = true;
+            this.blinkDuration = 0;
         }
     }
 
@@ -81,6 +92,17 @@ class Peg {
     }
 
     displayEye(x, y) {
+
+        if (this.blink) { // blink
+            fill(palette.black);
+            ellipse(0, 0, 60);
+            fill(palette.white);
+            rect(0, 0, 60, 5, 60);
+            // rect(-20, 10, 5, 20, 60);
+            // rect(0, 10, 5, 20, 60);
+            // rect(20, 10, 5, 20, 60);
+            return;
+        }
 
         let playerX = player.x;
         let playerY = player.y;
