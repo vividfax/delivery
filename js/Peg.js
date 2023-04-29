@@ -28,7 +28,7 @@ class Peg {
 
     collide(collider) {
 
-        if (dist(collider.x, collider.y, this.x, this.y) < 100) {
+        if (dist(collider.x, collider.y, this.x, this.y) < 50) {
             return true;
         }
     }

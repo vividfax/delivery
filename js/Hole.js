@@ -9,6 +9,10 @@ class Hole {
 
         this.scale = 0;
         this.maxScale = 0.5;
+
+        this.randoms = [];
+        this.randomInt = 0;
+        this.getRandoms();
     }
 
     update() {
@@ -30,6 +34,13 @@ class Hole {
 
         if (dist(collider.x, collider.y, this.x, this.y) < 20) {
             return true;
+        }
+    }
+
+    getRandoms() {
+
+        for (let i = 0; i < 3*10; i++) {
+            this.randoms.push(random(100, 255));
         }
     }
 
@@ -57,21 +68,53 @@ class Hole {
         translate(this.x, this.y);
         fill(palette.white);
         if (pegs[this.number].solved) fill(palette.mid);
-        this.displayShape(this.shapes.first);
-        this.displayShape(this.shapes.second);
-        this.displayShape(this.shapes.third);
+
+        this.displayShape(this.shapes.first, 0);
+        this.displayShape(this.shapes.second, 0);
+        this.displayShape(this.shapes.third, 0);
+
+        if (pegs[this.number].solved) {
+
+            for (let i = 1; i < 10; i++) {
+                this.displayShape(this.shapes.first, i);
+                this.displayShape(this.shapes.second, i);
+                this.displayShape(this.shapes.third, i);
+                this.randomInt += 3;
+            }
+            this.randomInt = 0;
+        }
+
         pop();
 
         pop();
     }
 
-    displayShape(shape) {
+    displayShape(shape, tier) {
 
         push();
         scale(this.scale);
         translate(shape[0], shape[1]);
         rotate(shape[5]);
-        rect(0, 0, shape[2], shape[3], shape[4]);
+
+        this.displayRings(shape, tier);
+
         pop();
+    }
+
+    displayRings(shape, tier) {
+
+        if (pegs[this.number].solved) {
+
+            let s = 1 - tier*0.1;
+
+            scale(s);
+            fill(this.randoms[this.randomInt], this.randoms[this.randomInt+1], this.randoms[this.randomInt+2]);
+
+            if (tier == 0) fill(palette.white);
+
+        } else {
+            fill(palette.white);
+        }
+        rect(0, 0, shape[2], shape[3], shape[4]);
     }
 }
