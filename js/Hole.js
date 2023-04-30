@@ -134,7 +134,6 @@ class Hole {
             fill(palette.dark);
             strokeWeight(30);
             stroke(palette.white);
-            strokeJoin(ROUND);
             textFont(scoreFont);
             textSize(90);
             text(score, 0, 0);

@@ -47,6 +47,7 @@ function setup() {
     angleMode(DEGREES);
     rectMode(CENTER);
     textAlign(CENTER, CENTER);
+    strokeJoin(ROUND);
 
     createBackgrounds();
 
