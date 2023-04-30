@@ -98,12 +98,15 @@ class Player {
                         this.velocityX *= 3.95;
                         this.velocityY *= 3.95;
 
-                        pegs[this.pegNumber].dead = true;
-                        holes[this.pegNumber].dead = true;
+                        if (!sandboxMode) {
+                            pegs[this.pegNumber].dead = true;
+                            holes[this.pegNumber].dead = true;
+                            addShape();
+                        }
+
                         this.pegNumber = -1;
                         player.switchedPegRecently = true;
                         player.pegSwitchFrameCount = 0;
-                        addShape();
 
                         break;
                     }
