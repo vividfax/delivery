@@ -26,8 +26,14 @@ class Player {
 
     update() {
 
-        if (!countingTime) {
+        if (!countingTime && !sandboxMode) {
             this.pegNumber = -1;
+            this.x = lerp(this.x, width/2, 0.05);
+            this.y = lerp(this.y, height/2, 0.05);
+            this.cameraX = lerp(this.cameraX, 0, 0.05);
+            this.cameraY = lerp(this.cameraY, height/5, 0.05);
+            this.wobblyCircle.update();
+            return;
         }
 
         let moveX = true;

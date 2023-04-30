@@ -56,6 +56,7 @@ function setup() {
 
     setupController();
 
+    player = new Player();
     newGame();
 }
 
@@ -113,7 +114,7 @@ function draw() {
 
 function newGame() {
 
-    player = new Player();
+    // player = new Player();
     shapes = [];
     holes = [];
     pegs = [];
