@@ -85,8 +85,8 @@ class Player {
 
                         collided = true;
 
-                        this.velocityX *= 1.95;
-                        this.velocityY *= 1.95;
+                        this.velocityX *= 3.95;
+                        this.velocityY *= 3.95;
 
                         this.pegNumber = -1;
                         player.switchedPegRecently = true;

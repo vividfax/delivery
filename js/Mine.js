@@ -61,14 +61,16 @@ class Mine {
         translate(this.x, this.y);
         rotate(this.rotation);
 
-        fill(palette.bad);
+        fill(palette.white);
         star(0, 0, this.radius + sin(frameCount+this.breatheOffset)*this.radius/5, this.radius*0.8 + sin(frameCount+this.breatheOffset)*this.radius/15, 32);
 
-        stroke(palette.black);
-        strokeWeight(this.radius*.2);
-        fill(palette.white);
-        textSize(this.radius*.7);
-        text(this.word, 0, 0);
+        if (player.pegNumber >= 0) {
+            stroke(palette.black);
+            strokeWeight(this.radius*.2);
+            fill(palette.white);
+            textSize(this.radius*.7);
+            text(this.word, 0, 0);
+        }
 
         pop();
 
