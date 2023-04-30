@@ -73,6 +73,14 @@ class Hole {
 
     displayHole(x, y) {
 
+        let middleX = player.x + player.cameraX;
+        let middleY = player.y + player.cameraY;
+
+        if (this.x + x > middleX + width/2 + 200) return;
+        if (this.x + x < middleX - width/2 - 200) return;
+        if (this.y + y > middleY + height/2 + 200) return;
+        if (this.y + y < middleY - height/2 - 200) return;
+
         push();
         translate(x, y);
 
@@ -84,7 +92,7 @@ class Hole {
         this.displayShape(this.shapes.second, 0);
         this.displayShape(this.shapes.third, 0);
 
-        if (pegs[this.number].solved) {
+        if (this.solved) {
 
             for (let i = 1; i < 5; i++) {
                 this.displayShape(this.shapes.first, i);
@@ -114,7 +122,7 @@ class Hole {
 
     displayRings(shape, tier) {
 
-        if (pegs[this.number].solved) {
+        if (this.solved) {
 
             let s = 1 - tier*0.2;
 

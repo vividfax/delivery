@@ -35,6 +35,8 @@ function setup() {
 
 function draw() {
 
+    // console.log(frameRate());
+
     buttonsPressed();
     stickMoved();
 
