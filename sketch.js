@@ -100,6 +100,7 @@ function newGame() {
     pegs.push(new Peg(shapes[0], 0));
     holes[0].solved = true;
     pegs[0].solved = true;
+    holes[0].partyDone = true;
 
     for (let i = 1; i < numberOfShapes+1; i++) {
         shapes.push({
