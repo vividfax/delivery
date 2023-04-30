@@ -22,11 +22,30 @@ class Hole {
         this.getRandoms();
 
         this.solved = false;
+
+        this.partyOn = false;
+        this.partyDone = false;
+        this.partyDuration = 0;
+        this.party;
     }
 
     update() {
 
-        if (this.solved) return;
+        if (this.solved) {
+
+            if (!this.partyOn) {
+                this.partyOn = true;
+                this.party = new Party(this.x, this.y);
+            } else if (!this.partyDone && this.partyDuration > 100) {
+                this.partyDone = true;
+                return;
+            } else if (!this.partyDone) {
+                this.party.update();
+                this.partyDuration++;
+            }
+
+            return;
+        }
 
         if (this.number == player.pegNumber && this.fit(player)) {
             player.pegNumber = -1;
@@ -113,6 +132,10 @@ class Hole {
         pop();
 
         pop();
+
+        if (this.partyOn && !this.partyDone) {
+            this.party.display(x, y);
+        }
     }
 
     displayShape(shape, tier) {
