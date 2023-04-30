@@ -140,9 +140,9 @@ function newGame() {
         pegs.push(new Peg(shapes[i], i));
     }
 
-    for (let i = 0; i < 5; i++) {
-        mines.push(new Mine());
-    }
+    // for (let i = 0; i < 5; i++) {
+    //     mines.push(new Mine());
+    // }
 
     timer = 16;
     timeBump = 8;
