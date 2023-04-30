@@ -55,6 +55,8 @@ class Hole {
             this.solved = true;
             addShape();
             player.newWobble();
+            score++;
+            if (score % 5 == 4) mines.push(new Mine());
         }
 
         if (this.scale < this.maxScale) {
@@ -64,7 +66,7 @@ class Hole {
 
     fit(collider) {
 
-        if (dist(collider.x, collider.y, this.x, this.y) < 50) {
+        if (dist(collider.x, collider.y, this.x, this.y) < 70) {
             return true;
         }
     }

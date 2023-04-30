@@ -5,13 +5,15 @@ let palette = {
     light: "#A4D4B4",
     mid: "#B96D40",
     dark: "#6004C9",
-    black: "#3B1C32"
+    black: "#3B1C32",
+    bad: "#C8FF00"
 }
 
 let player;
 let shapes = [];
 let holes = [];
 let pegs = [];
+let mines = [];
 
 let worldWidth = 2500;
 let worldHeight = 2000;
@@ -19,12 +21,23 @@ let numberOfShapes = 5;
 
 let noiseLayers = [];
 
+let score = 0;
+
+let comicFont;
+
+function preload() {
+
+    comicFont = loadFont("./fonts/Bangers-Regular.ttf");
+}
+
 function setup() {
 
     createCanvas(windowWidth, windowHeight);
     noStroke();
     angleMode(DEGREES);
     rectMode(CENTER);
+    textAlign(CENTER, CENTER);
+    textFont(comicFont);
 
     createBackgrounds();
 
@@ -59,6 +72,11 @@ function draw() {
 
     player.update();
     player.display();
+
+    for (let i = 0; i < mines.length; i++) {
+        mines[i].update();
+        mines[i].display();
+    }
 }
 
 function newGame() {
@@ -67,6 +85,8 @@ function newGame() {
     shapes = [];
     holes = [];
     pegs = [];
+    mines = [];
+    score = 0;
 
     for (let i = 0; i < numberOfShapes; i++) {
         shapes.push({
@@ -74,12 +94,13 @@ function newGame() {
             second: newShape(),
             third: newShape()
         });
-    }
-
-    for (let i = 0; i < shapes.length; i++) {
         holes.push(new Hole(shapes[i], i));
         pegs.push(new Peg(shapes[i], i));
     }
+
+    // for (let i = 0; i < 5; i++) {
+    //     mines.push(new Mine());
+    // }
 }
 
 function newShape() {

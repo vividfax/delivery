@@ -69,6 +69,34 @@ class Player {
                 }
             }
 
+            if (!this.switchedPegRecently) {
+                for (let i = 0; i < mines.length; i++) {
+                    if (mines[i].collide(potentialPlayer)) {
+
+                        let incidenceAngle = createVector(this.velocityX, this.velocityY).heading();
+                        let surfaceAngle = createVector(potentialPlayer.x - mines[i].x, potentialPlayer.y - mines[i].y).heading() + 90;
+                        let newAngle = angleReflect(incidenceAngle, surfaceAngle);
+
+                        let v = createVector(this.velocityX, this.velocityY);
+                        v.setHeading(newAngle);
+
+                        this.velocityX = v.x;
+                        this.velocityY = v.y;
+
+                        collided = true;
+
+                        this.velocityX *= 1.95;
+                        this.velocityY *= 1.95;
+
+                        this.pegNumber = -1;
+                        player.switchedPegRecently = true;
+                        player.pegSwitchFrameCount = 0;
+
+                        break;
+                    }
+                }
+            }
+
             if (collided) {
                 this.collisionDuration++;
 
