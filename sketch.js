@@ -1,10 +1,12 @@
 // https://coolors.co/ffebd6-a4d4b4-b96d40-6004c9-3b1c32
+// https://coolors.co/ffebd6-ffbf00-9c91b6-6000cd-3b1c32
 
 let palette = {
     white: "#FFEBD6",
-    light: "#A4D4B4",
-    mid: "#B96D40",
-    dark: "#6004C9",
+    light: "#93A8A4",
+    light2: "#8EA4A0",
+    mid: "#FFBF00",
+    dark: "#6000CD",
     black: "#3B1C32",
     bad: "#C8FF00"
 }
@@ -138,9 +140,9 @@ function newGame() {
         pegs.push(new Peg(shapes[i], i));
     }
 
-    // for (let i = 0; i < 5; i++) {
-    //     mines.push(new Mine());
-    // }
+    for (let i = 0; i < 5; i++) {
+        mines.push(new Mine());
+    }
 
     timer = 16;
     timeBump = 8;
@@ -181,7 +183,7 @@ function createBackgrounds() {
 
         noiseLayers[h].noStroke();
         noiseLayers[h].background(palette.light);
-        noiseLayers[h].fill("#9ED1AF");
+        noiseLayers[h].fill(palette.light2);
 
         for (let i = 0; i < width; i += size) {
             for (let j = 0; j < height; j += size) {

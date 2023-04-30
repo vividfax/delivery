@@ -18,6 +18,7 @@ class Peg {
         this.maxScale = 0.6;
 
         this.solved = false;
+        this.dead = false;
 
         this.blink = false;
         this.blinkDuration = 0;

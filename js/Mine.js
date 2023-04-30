@@ -13,6 +13,13 @@ class Mine {
         this.rotationDirection = random([-1, 1]);
 
         this.word = random(["POW!", "BANG!", "WHAM!", "ZAP!", "BOOM!", "BAM!","SMASH!", "ZOINKS!"]);
+        // this.colours = [color("#FFEBD6"), color("#FFBF00"), color("#B30027"), color("#FFBF00"), color("#FFEBD6")];
+        this.colours = [color("#FFBF00"), color("#B30027"), color("#FFEBD6"), color("#B30027"), color("#FFBF00")];
+
+        this.coloursOffset = int(random(3));
+        this.colourLerp = 0;
+        this.colourLerpPercent = 0;
+        this.currentColour = 0;
     }
 
     update() {
@@ -61,17 +68,25 @@ class Mine {
         translate(this.x, this.y);
         rotate(this.rotation);
 
-        fill(palette.white);
+        let colour = lerpColor(this.colours[this.colourLerp], this.colours[this.colourLerp+1], this.colourLerpPercent);
+        this.colourLerpPercent += 0.02;
+        if (this.colourLerpPercent >= 1) {
+            this.colourLerpPercent = 0;
+            this.colourLerp++;
+            if (this.colourLerp >= 4) this.colourLerp = 0;
+        }
+
+        fill(colour);
         star(0, 0, this.radius + sin(frameCount+this.breatheOffset)*this.radius/5, this.radius*0.8 + sin(frameCount+this.breatheOffset)*this.radius/15, 32);
 
-        if (player.pegNumber >= 0) {
+        // if (player.pegNumber >= 0) {
             stroke(palette.black);
             strokeWeight(this.radius*.2);
             fill(palette.white);
             textFont(comicFont);
             textSize(this.radius*.7);
             text(this.word, 0, 0);
-        }
+        // }
 
         pop();
 

@@ -27,6 +27,7 @@ class Hole {
         this.getRandoms();
 
         this.solved = false;
+        this.dead = false;
 
         this.partyOn = false;
         this.partyDone = false;
