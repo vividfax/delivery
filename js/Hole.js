@@ -39,6 +39,8 @@ class Hole {
 
     update() {
 
+        if (this.dead) return;
+
         if (this.solved) {
 
             if (!this.partyOn) {
@@ -83,7 +85,7 @@ class Hole {
 
     collide(collider) {
 
-        if (!pegs[this.number].solved) return;
+        if (this.dead || !this.solved) return;
 
         if (dist(collider.x, collider.y, this.x, this.y) < 70) {
             return true;
@@ -98,6 +100,8 @@ class Hole {
     }
 
     display() {
+
+        if (this.dead) return;
 
         this.displayHole(0, 0);
         this.displayHole(-worldWidth, -worldHeight);

@@ -31,7 +31,7 @@ class Peg {
 
     update() {
 
-        if (this.solved) return;
+        if (this.dead || this.solved) return;
 
         if (countingTime && !this.solved && !player.switchedPegRecently && this.collide(player) && player.pegNumber != this.number) {
             player.pegNumber = this.number;
@@ -92,6 +92,7 @@ class Peg {
         translate(width/2, height/2);
         translate(this.x, this.y);
         fill(palette.mid);
+        if (this.dead) fill(palette.dead);
         if (player.pegNumber == this.number) fill(palette.dark);
         this.displayShape(this.shapes.first);
         this.displayShape(this.shapes.second);
@@ -115,7 +116,8 @@ class Peg {
 
         push();
         scale(this.scale);
-        translate(shape[0], shape[1] + sin(frameCount+this.sighOffset) * 10);
+        if (!this.dead) translate(shape[0], shape[1] + sin(frameCount+this.sighOffset) * 10);
+        else translate(shape[0], shape[1]);
         rotate(shape[5]);
         rect(0, 0, shape[2], shape[3], shape[4]);
         pop();
@@ -132,6 +134,15 @@ class Peg {
             // rect(-20, 10, 5, 20, 60);
             // rect(0, 10, 5, 20, 60);
             // rect(20, 10, 5, 20, 60);
+            return;
+        } else if (this.dead) {
+            fill(palette.dead);
+            ellipse(xOffset, 0, 60);
+            stroke(palette.black);
+            strokeWeight(5);
+            line(xOffset-20, -20, xOffset+20, 20);
+            line(xOffset-20, 20, xOffset+20, -20);
+            noStroke();
             return;
         }
 

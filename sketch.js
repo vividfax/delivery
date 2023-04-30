@@ -6,6 +6,7 @@ let palette = {
     light: "#93A8A4",
     light2: "#8EA4A0",
     mid: "#FFBF00",
+    dead: "#7B6355",
     dark: "#6000CD",
     black: "#3B1C32",
     bad: "#C8FF00"
