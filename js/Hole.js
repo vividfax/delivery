@@ -27,6 +27,8 @@ class Hole {
         this.partyDone = false;
         this.partyDuration = 0;
         this.party;
+
+        this.rotateOffset = random(360);
     }
 
     update() {
@@ -113,6 +115,7 @@ class Hole {
         push();
         translate(width/2, height/2);
         translate(this.x, this.y);
+        if (this.solved) rotate(sin(frameCount+this.rotateOffset) * 10)
 
         this.displayShape(this.shapes.first, 0);
         this.displayShape(this.shapes.second, 0);
