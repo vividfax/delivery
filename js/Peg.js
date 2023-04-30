@@ -24,6 +24,8 @@ class Peg {
 
         this.numberOfEyes = random([1, 2]);
         this.eyeSpacing = random(35, 55);
+
+        this.sighOffset = random(360);
     }
 
     update() {
@@ -112,7 +114,7 @@ class Peg {
 
         push();
         scale(this.scale);
-        translate(shape[0], shape[1]);
+        translate(shape[0], shape[1] + sin(frameCount+this.sighOffset) * 10);
         rotate(shape[5]);
         rect(0, 0, shape[2], shape[3], shape[4]);
         pop();
