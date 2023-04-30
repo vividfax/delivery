@@ -4,6 +4,13 @@ class Hole {
 
         this.x = random(worldWidth);
         this.y = random(worldHeight);
+
+        while (dist(player.x, player.y, this.x, this.y) < 200) {
+
+            this.x = random(worldWidth);
+            this.y = random(worldHeight);
+        }
+
         this.shapes = holeShapes;
         this.number = number;
 
