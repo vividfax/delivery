@@ -32,7 +32,7 @@ class Peg {
 
         if (this.solved) return;
 
-        if (!this.solved && !player.switchedPegRecently && this.collide(player) && player.pegNumber != this.number) {
+        if (countingTime && !this.solved && !player.switchedPegRecently && this.collide(player) && player.pegNumber != this.number) {
             player.pegNumber = this.number;
             player.switchedPegRecently = true;
             player.pegSwitchFrameCount = 0;

@@ -26,6 +26,14 @@ let score = 0;
 let comicFont;
 let scoreFont;
 
+let timer = 0;
+let timeBump = 0;
+let timeStart = 0;
+let timeCount = 0;
+let countingTime = true;
+
+let sandboxMode = false;
+
 function preload() {
 
     comicFont = loadFont("./fonts/Bangers-Regular.ttf");
@@ -56,6 +64,7 @@ function draw() {
 
     image(noiseLayers[int(frameCount/10)%noiseLayers.length], 0, 0);
 
+    push();
     translate(-player.x, -player.y);
     translate(-player.cameraX, -player.cameraY);
 
@@ -80,6 +89,22 @@ function draw() {
 
     player.update();
     player.display();
+
+    pop();
+
+    if (!sandboxMode  && score != 0 && countingTime == true) {
+
+        if (timeStart == 0) timeStart = millis();
+        if (timeStart + timeCount*1000 < millis()) {
+            timeCount++;
+            timer--;
+        }
+
+        if (timer <= 0) countingTime = false;
+    }
+
+    displayTimer();
+    if (!countingTime) displayResetButton();
 }
 
 function newGame() {
@@ -115,6 +140,12 @@ function newGame() {
     // for (let i = 0; i < 5; i++) {
     //     mines.push(new Mine());
     // }
+
+    timer = 16;
+    timeBump = 8;
+    timeStart = 0;
+    timeCount = 0;
+    countingTime = true;
 }
 
 function newShape() {
@@ -159,5 +190,52 @@ function createBackgrounds() {
                 }
             }
         }
+    }
+}
+
+function displayTimer() {
+
+    noFill();
+    stroke(palette.white);
+    if (!countingTime) stroke(palette.black);
+    strokeWeight(20);
+    rect(width/2, height/2, width, height, 20);
+    noStroke();
+
+    if (sandboxMode || score == 0) return;
+    fill(palette.white);
+    if (!countingTime) fill(palette.black);
+    rect(width/2, 50, 150, 100, 0, 0, 10, 10);
+    fill(palette.dark);
+    if (!countingTime) fill(palette.white);
+    textFont(scoreFont);
+    textSize(50);
+    text(timer, width/2, 50);
+}
+
+function displayResetButton() {
+
+    if (aButtonPressed(2) || keyIsDown(88)) {
+        newGame();
+    } else if (aButtonPressed(1) || keyIsDown(66)) {
+        sandboxMode = true;
+        newGame();
+    }
+
+    fill(palette.black);
+    rect(width/2, height/2, 450, 200, 10);
+    fill(palette.white);
+    textSize()
+    text("[x] restart", width/2, height/2-45);
+    text("[b] sandbox mode", width/2, height/2+35);
+}
+
+function keyPressed() {
+
+    if (!countingTime && (key == "x" || key == "X")) {
+        newGame();
+    } else if (!countingTime && (key == "b" || key == "B")) {
+        sandboxMode = true;
+        newGame();
     }
 }

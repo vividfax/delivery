@@ -61,7 +61,11 @@ class Hole {
             addShape();
             player.newWobble();
             score++;
-            if (score % 5 == 4) mines.push(new Mine());
+            if (score % 5 == 4) {
+                mines.push(new Mine());
+                if (timeBump > 3) timeBump--;
+            }
+            if (score != 1) timer += timeBump;
         }
 
         if (this.scale < this.maxScale) {

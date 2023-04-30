@@ -26,6 +26,10 @@ class Player {
 
     update() {
 
+        if (!countingTime) {
+            this.pegNumber = -1;
+        }
+
         let moveX = true;
         let moveY = true;
 
