@@ -11,6 +11,11 @@ class Hole {
             this.y = random(worldHeight);
         }
 
+        if (number == 0) {
+            this.x = player.x;
+            this.y = player.y-90;
+        }
+
         this.shapes = holeShapes;
         this.number = number;
 
@@ -117,21 +122,36 @@ class Hole {
         push();
         translate(width/2, height/2);
         translate(this.x, this.y);
-        if (this.solved) rotate(sin(frameCount+this.rotateOffset) * 10)
+        if (this.solved) rotate(sin(frameCount+this.rotateOffset) * 10);
 
-        this.displayShape(this.shapes.first, 0);
-        this.displayShape(this.shapes.second, 0);
-        this.displayShape(this.shapes.third, 0);
+        if (this.number == 0) {
 
-        if (this.solved) {
+            push();
+            fill(palette.dark);
+            strokeWeight(30);
+            stroke(palette.white);
+            strokeJoin(ROUND);
+            textFont(scoreFont);
+            textSize(90);
+            text(score, 0, 0);
+            pop();
 
-            for (let i = 1; i < 5; i++) {
-                this.displayShape(this.shapes.first, i);
-                this.displayShape(this.shapes.second, i);
-                this.displayShape(this.shapes.third, i);
-                this.randomInt += 3;
+        } else {
+
+            this.displayShape(this.shapes.first, 0);
+            this.displayShape(this.shapes.second, 0);
+            this.displayShape(this.shapes.third, 0);
+
+            if (this.solved) {
+
+                for (let i = 1; i < 5; i++) {
+                    this.displayShape(this.shapes.first, i);
+                    this.displayShape(this.shapes.second, i);
+                    this.displayShape(this.shapes.third, i);
+                    this.randomInt += 3;
+                }
+                this.randomInt = 0;
             }
-            this.randomInt = 0;
         }
 
         pop();

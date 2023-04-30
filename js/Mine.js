@@ -68,6 +68,7 @@ class Mine {
             stroke(palette.black);
             strokeWeight(this.radius*.2);
             fill(palette.white);
+            textFont(comicFont);
             textSize(this.radius*.7);
             text(this.word, 0, 0);
         }

@@ -24,10 +24,12 @@ let noiseLayers = [];
 let score = 0;
 
 let comicFont;
+let scoreFont;
 
 function preload() {
 
     comicFont = loadFont("./fonts/Bangers-Regular.ttf");
+    scoreFont = loadFont("./fonts/ContrailOne-Regular.ttf");
 }
 
 function setup() {
@@ -37,7 +39,6 @@ function setup() {
     angleMode(DEGREES);
     rectMode(CENTER);
     textAlign(CENTER, CENTER);
-    textFont(comicFont);
 
     createBackgrounds();
 
@@ -58,10 +59,17 @@ function draw() {
     translate(-player.x, -player.y);
     translate(-player.cameraX, -player.cameraY);
 
+    for (let i = 0; i < mines.length; i++) {
+        mines[i].update();
+        mines[i].display();
+    }
+
     for (let i = 0; i < shapes.length; i++) {
         holes[i].update();
         holes[i].display();
     }
+
+    holes[0].display();
 
     for (let i = 0; i < shapes.length; i++) {
         pegs[i].update();
@@ -72,11 +80,6 @@ function draw() {
 
     player.update();
     player.display();
-
-    for (let i = 0; i < mines.length; i++) {
-        mines[i].update();
-        mines[i].display();
-    }
 }
 
 function newGame() {
@@ -88,7 +91,17 @@ function newGame() {
     mines = [];
     score = 0;
 
-    for (let i = 0; i < numberOfShapes; i++) {
+    shapes.push({
+        first: newShape(),
+        second: newShape(),
+        third: newShape()
+    });
+    holes.push(new Hole(shapes[0], 0));
+    pegs.push(new Peg(shapes[0], 0));
+    holes[0].solved = true;
+    pegs[0].solved = true;
+
+    for (let i = 1; i < numberOfShapes+1; i++) {
         shapes.push({
             first: newShape(),
             second: newShape(),

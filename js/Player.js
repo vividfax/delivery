@@ -166,10 +166,10 @@ class Player {
 
         push();
         translate(width/2, height/2);
-        fill(palette.dark);
-        ellipse(this.x, this.y, this.radius);
 
+        fill(palette.dark);
         this.wobblyCircle.display();
+
         pop();
     }
 }
