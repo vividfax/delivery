@@ -80,7 +80,9 @@ class Player {
                     this.velocityX *= 0.95;
                     this.velocityY *= 0.95;
 
-                    bounceSound.play();
+                    bounceSounds[bounceSoundIndex].play();
+                    bounceSoundIndex++;
+                    if (bounceSoundIndex >= bounceSounds.length) bounceSoundIndex = 0;
 
                     break;
                 }
@@ -115,7 +117,9 @@ class Player {
                         player.switchedPegRecently = true;
                         player.pegSwitchFrameCount = 0;
 
-                        powSound.play();
+                        powSounds[powSoundIndex].play();
+                        powSoundIndex++;
+                        if (powSoundIndex >= powSounds.length) powSoundIndex = 0;
 
                         break;
                     }

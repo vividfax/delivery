@@ -70,7 +70,9 @@ class Hole {
             }
             if (score != 1) timer += timeBump;
 
-            placeSound.play();
+            placeSounds[placeSoundIndex].play();
+            placeSoundIndex++;
+            if (placeSoundIndex >= placeSounds.length) placeSoundIndex = 0;
         }
 
         if (this.scale < this.maxScale) {
