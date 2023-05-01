@@ -64,17 +64,8 @@ function preload() {
 
     for (let i = 0; i < 6; i++) {
         bounceSounds.push(new Audio("./audio/Block_Bounce.wav"));
-    }
-
-    for (let i = 0; i < 6; i++) {
         placeSounds.push(new Audio("./audio/Block_Place.wav"));
-    }
-
-    for (let i = 0; i < 6; i++) {
         powSounds.push(new Audio("./audio/Block_POW.wav"));
-    }
-
-    for (let i = 0; i < 6; i++) {
         pickupSounds.push(new Audio("./audio/Block_Pickup.wav"));
     }
 
