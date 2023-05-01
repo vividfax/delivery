@@ -38,7 +38,9 @@ class Peg {
             player.switchedPegRecently = true;
             player.pegSwitchFrameCount = 0;
 
-            pickupSound.play();
+            pickupSounds[pickupSoundIndex].play();
+            pickupSoundIndex++;
+            if (pickupSoundIndex >= pickupSounds.length) pickupSoundIndex = 0;
         }
 
         if (this.scale < this.maxScale) {

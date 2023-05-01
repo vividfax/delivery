@@ -42,10 +42,12 @@ let sandboxMode = false;
 
 let music;
 let bounceSound;
-let pickupSound;
 let placeSound;
 let powSound;
+let pickupSounds = [];
 let countdownSounds = [];
+
+let pickupSoundIndex = 0;
 
 let interacted = false;
 
@@ -58,12 +60,14 @@ function preload() {
     music.loop = true;
 
     bounceSound = new Audio("./audio/Block_Bounce.wav");
-    pickupSound = new Audio("./audio/Block_Pickup.wav");
     placeSound = new Audio("./audio/Block_Place.wav");
     powSound = new Audio("./audio/Block_POW.wav");
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
+        pickupSounds.push(new Audio("./audio/Block_Pickup.wav"));
+    }
 
+    for (let i = 0; i < 4; i++) {
         let num = i+1;
         let sound = new Audio("./audio/Countdown_" + num + ".wav");
         countdownSounds.push(sound);
