@@ -66,6 +66,7 @@ function preload() {
 
     music = new Audio("./audio/LudumDare_MusicOGG.ogg");
     music.loop = true;
+    music.volume = 0.9;
 
     buttonPressSound = new Audio("./audio/ButtonPress.wav");
     gameOverSound = new Audio("./audio/GAMEOVER.wav");
