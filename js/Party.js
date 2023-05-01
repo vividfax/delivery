@@ -34,20 +34,20 @@ class Party {
 
     display(x, y) {
 
-        push();
-        translate(width/2, height/2);
-        translate(x, y);
+        shapeLayer.push();
+        shapeLayer.translate(width/2, height/2);
+        shapeLayer.translate(x, y);
 
         for (let i = 0; i < this.confettiNumber; i++) {
 
-            push();
-            translate(this.confetti[i].x, this.confetti[i].y);
-            rotate(this.confetti[i].rotation);
-            fill(this.confetti[i].colour);
-            rect(0, 0, this.confetti[i].size*30);
-            pop();
+            shapeLayer.push();
+            shapeLayer.translate(this.confetti[i].x, this.confetti[i].y);
+            shapeLayer.rotate(this.confetti[i].rotation);
+            shapeLayer.fill(this.confetti[i].colour);
+            shapeLayer.rect(0, 0, this.confetti[i].size*30);
+            shapeLayer.pop();
         }
 
-        pop();
+        shapeLayer.pop();
     }
 }
