@@ -170,24 +170,24 @@ class Peg {
             shadowLayer.ellipse(xOffset, 50, 60);
         }
 
-        if (this.blink) { // blink
+        if (this.dead) {
+            shapeLayer.fill(palette.dead);
+            shapeLayer.ellipse(xOffset, 0, 60);
+            shapeLayer.stroke(palette.black);
+            shapeLayer.strokeWeight(8);
+            shapeLayer.line(xOffset-15, -15, xOffset+15, 15);
+            shapeLayer.line(xOffset-15, 15, xOffset+15, -15);
+            shapeLayer.noStroke();
+            return;
+        } else if (this.blink) { // blink
             shapeLayer.fill(palette.mid);
             if (player.pegNumber == this.number) shapeLayer.fill(palette.dark);
             shapeLayer.ellipse(xOffset, 0, 60);
             shapeLayer.fill(palette.black);
-            shapeLayer.rect(xOffset, 0, 60, 5, 60);
+            shapeLayer.rect(xOffset, 0, 60, 8, 60);
             // rect(-20, 10, 5, 20, 60);
             // rect(0, 10, 5, 20, 60);
             // rect(20, 10, 5, 20, 60);
-            return;
-        } else if (this.dead) {
-            shapeLayer.fill(palette.dead);
-            shapeLayer.ellipse(xOffset, 0, 60);
-            shapeLayer.stroke(palette.black);
-            shapeLayer.strokeWeight(5);
-            shapeLayer.line(xOffset-20, -20, xOffset+20, 20);
-            shapeLayer.line(xOffset-20, 20, xOffset+20, -20);
-            shapeLayer.noStroke();
             return;
         }
 
