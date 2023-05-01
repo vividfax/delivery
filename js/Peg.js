@@ -115,6 +115,7 @@ class Peg {
         this.displayShape(this.shapes.third);
 
         shapeLayer.scale(this.scale);
+        shadowLayer.scale(this.scale);
 
         if (this.numberOfEyes == 1) {
             this.displayEye(x, y, 0);
@@ -156,6 +157,9 @@ class Peg {
     }
 
     displayEye(x, y, xOffset) {
+
+        shadowLayer.fill(palette.shadow);
+        shadowLayer.ellipse(xOffset, 50, 60);
 
         if (this.blink) { // blink
             shapeLayer.fill(palette.mid);
