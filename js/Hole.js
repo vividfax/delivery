@@ -69,6 +69,8 @@ class Hole {
                 if (timeBump > 3) timeBump--;
             }
             if (score != 1) timer += timeBump;
+
+            placeSound.play();
         }
 
         if (this.scale < this.maxScale) {

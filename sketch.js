@@ -40,10 +40,34 @@ let countingTime = true;
 
 let sandboxMode = false;
 
+let music;
+let bounceSound;
+let pickupSound;
+let placeSound;
+let powSound;
+let countdownSounds = [];
+
+let interacted = false;
+
 function preload() {
 
     comicFont = loadFont("./fonts/Bangers-Regular.ttf");
     scoreFont = loadFont("./fonts/ContrailOne-Regular.ttf");
+
+    music = new Audio("./audio/Delivery_Music_Loop.wav");
+    music.loop = true;
+
+    bounceSound = new Audio("./audio/Block_Bounce.wav");
+    pickupSound = new Audio("./audio/Block_Pickup.wav");
+    placeSound = new Audio("./audio/Block_Place.wav");
+    powSound = new Audio("./audio/Block_POW.wav");
+
+    for (let i = 0; i < 4; i++) {
+
+        let num = i+1;
+        let sound = new Audio("./audio/Countdown_" + num + ".wav");
+        countdownSounds.push(sound);
+    }
 }
 
 function setup() {
@@ -137,6 +161,8 @@ function draw() {
         if (timeStart + timeCount*1000 < millis()) {
             timeCount++;
             timer--;
+
+            if (timer < 5 && timer > 0) countdownSounds[timer-1].play();
         }
 
         if (timer <= 0) countingTime = false;

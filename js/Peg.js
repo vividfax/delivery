@@ -37,6 +37,8 @@ class Peg {
             player.pegNumber = this.number;
             player.switchedPegRecently = true;
             player.pegSwitchFrameCount = 0;
+
+            pickupSound.play();
         }
 
         if (this.scale < this.maxScale) {

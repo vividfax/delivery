@@ -26,6 +26,11 @@ class Player {
 
     update() {
 
+        if (!interacted && (controllerLX != 0 || controllerLY != 0)) {
+            interacted = true;
+            music.play();
+        }
+
         if (!countingTime && !sandboxMode) {
             this.pegNumber = -1;
             this.x = lerp(this.x, width/2, 0.05);
@@ -75,6 +80,8 @@ class Player {
                     this.velocityX *= 0.95;
                     this.velocityY *= 0.95;
 
+                    bounceSound.play();
+
                     break;
                 }
             }
@@ -107,6 +114,8 @@ class Player {
                         this.pegNumber = -1;
                         player.switchedPegRecently = true;
                         player.pegSwitchFrameCount = 0;
+
+                        powSound.play();
 
                         break;
                     }
