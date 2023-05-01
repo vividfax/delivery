@@ -37,6 +37,9 @@ class Party {
         shapeLayer.push();
         shapeLayer.translate(width/2, height/2);
         shapeLayer.translate(x, y);
+        shadowLayer.push();
+        shadowLayer.translate(width/2, height/2);
+        shadowLayer.translate(x, y);
 
         for (let i = 0; i < this.confettiNumber; i++) {
 
@@ -46,8 +49,16 @@ class Party {
             shapeLayer.fill(this.confetti[i].colour);
             shapeLayer.rect(0, 0, this.confetti[i].size*30);
             shapeLayer.pop();
+
+            shadowLayer.push();
+            shadowLayer.translate(this.confetti[i].x, this.confetti[i].y+30);
+            shadowLayer.rotate(this.confetti[i].rotation);
+            shadowLayer.fill(palette.shadow);
+            shadowLayer.rect(0, 0, this.confetti[i].size*30);
+            shadowLayer.pop();
         }
 
         shapeLayer.pop();
+        shadowLayer.pop();
     }
 }
