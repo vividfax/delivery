@@ -80,10 +80,10 @@ class Peg {
         let middleX = player.x + player.cameraX;
         let middleY = player.y + player.cameraY;
 
-        if (this.x + x > middleX + width/2 + 200) return;
-        if (this.x + x < middleX - width/2 - 200) return;
-        if (this.y + y > middleY + height/2 + 200) return;
-        if (this.y + y < middleY - height/2 - 200) return;
+        // if (this.x + x > middleX + width/2 + 200) return;
+        // if (this.x + x < middleX - width/2 - 200) return;
+        // if (this.y + y > middleY + height/2 + 200) return;
+        // if (this.y + y < middleY - height/2 - 200) return;
 
         push();
         translate(x, y);
