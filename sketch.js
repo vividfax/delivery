@@ -91,6 +91,7 @@ function draw() {
     }
 
     if (player.pegNumber >= 0) pegs[player.pegNumber].display();
+    if (!countingTime && !sandboxMode) holes[0].display();
 
     player.update();
     player.display();
