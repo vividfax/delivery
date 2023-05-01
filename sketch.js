@@ -43,14 +43,19 @@ let sandboxMode = false;
 let music;
 let bounceSounds = [];
 let placeSounds = [];
+let powDeadSounds = [];
 let powSounds = [];
 let pickupSounds = [];
 let countdownSounds = [];
+let buttonPressSound;
+let gameOverSound;
 
 let bounceSoundIndex = 0;
 let placeSoundIndex = 0;
+let powDeadSoundIndex = 0;
 let powSoundIndex = 0;
 let pickupSoundIndex = 0;
+let pickupSoundIndexIndex = 0;
 
 let interacted = false;
 
@@ -59,14 +64,27 @@ function preload() {
     comicFont = loadFont("./fonts/Bangers-Regular.ttf");
     scoreFont = loadFont("./fonts/ContrailOne-Regular.ttf");
 
-    music = new Audio("./audio/Delivery_Music_Loop.wav");
+    music = new Audio("./audio/LudumDare_MusicOGG.ogg");
     music.loop = true;
+
+    buttonPressSound = new Audio("./audio/ButtonPress.wav");
+    gameOverSound = new Audio("./audio/GAMEOVER.wav");
 
     for (let i = 0; i < 6; i++) {
         bounceSounds.push(new Audio("./audio/Block_Bounce.wav"));
         placeSounds.push(new Audio("./audio/Block_Place.wav"));
-        powSounds.push(new Audio("./audio/Block_POW.wav"));
-        pickupSounds.push(new Audio("./audio/Block_Pickup.wav"));
+        powDeadSounds.push(new Audio("./audio/Block_POW.wav"));
+        powSounds.push(new Audio("./audio/Block_POW_NoDeath.wav"));
+    }
+
+    for (let i = 0; i < 4; i++) {
+        pickupSounds.push([]);
+        let num = i+1;
+
+        for (let j = 0; j < 4; j++) {
+            let sound = new Audio("./audio/Block_Pickup" + num + ".wav");
+            pickupSounds[i].push(sound);
+        }
     }
 
     for (let i = 0; i < 4; i++) {
@@ -171,7 +189,11 @@ function draw() {
             if (timer < 5 && timer > 0) countdownSounds[timer-1].play();
         }
 
-        if (timer <= 0) countingTime = false;
+        if (timer <= 0) {
+
+            countingTime = false;
+            gameOverSound.play();
+        }
     }
 
     displayTimer();
@@ -288,9 +310,11 @@ function displayResetButton() {
 
     if (aButtonPressed(2) || keyIsDown(88)) {
         newGame();
+        buttonPressSound.play();
     } else if (aButtonPressed(1) || keyIsDown(66)) {
-        sandboxMode = true;
         newGame();
+        sandboxMode = true;
+        buttonPressSound.play();
     }
 
     fill(palette.black);
@@ -299,14 +323,4 @@ function displayResetButton() {
     textSize()
     text("[x] restart", width/2, height/2-45);
     text("[b] sandbox mode", width/2, height/2+35);
-}
-
-function keyPressed() {
-
-    if (!countingTime && (key == "x" || key == "X")) {
-        newGame();
-    } else if (!countingTime && (key == "b" || key == "B")) {
-        sandboxMode = true;
-        newGame();
-    }
 }

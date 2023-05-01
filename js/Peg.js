@@ -38,9 +38,12 @@ class Peg {
             player.switchedPegRecently = true;
             player.pegSwitchFrameCount = 0;
 
-            pickupSounds[pickupSoundIndex].play();
-            pickupSoundIndex++;
-            if (pickupSoundIndex >= pickupSounds.length) pickupSoundIndex = 0;
+            let nextIndex = int(random(pickupSounds.length));
+            if (nextIndex == pickupSoundIndex) nextIndex = int(random(pickupSounds.length));
+            pickupSoundIndex = nextIndex;
+            pickupSounds[pickupSoundIndex][pickupSoundIndexIndex].play();
+            pickupSoundIndexIndex++;
+            if (pickupSoundIndexIndex >= pickupSounds[0].length) pickupSoundIndexIndex = 0;
         }
 
         if (this.scale < this.maxScale) {
@@ -162,8 +165,10 @@ class Peg {
 
     displayEye(x, y, xOffset) {
 
-        shadowLayer.fill(palette.shadow);
-        shadowLayer.ellipse(xOffset, 50, 60);
+        if (!this.dead) {
+            shadowLayer.fill(palette.shadow);
+            shadowLayer.ellipse(xOffset, 50, 60);
+        }
 
         if (this.blink) { // blink
             shapeLayer.fill(palette.mid);

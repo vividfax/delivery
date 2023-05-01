@@ -111,15 +111,21 @@ class Player {
                             pegs[this.pegNumber].dead = true;
                             holes[this.pegNumber].dead = true;
                             addShape();
+
+                            powDeadSounds[powDeadSoundIndex].play();
+                            powDeadSoundIndex++;
+                            if (powDeadSoundIndex >= powDeadSounds.length) powDeadSoundIndex = 0;
+                        } else {
+
+                            powSounds[powSoundIndex].play();
+                            powSoundIndex++;
+                            if (powSoundIndex >= powSounds.length) powSoundIndex = 0;
                         }
 
                         this.pegNumber = -1;
                         player.switchedPegRecently = true;
                         player.pegSwitchFrameCount = 0;
 
-                        powSounds[powSoundIndex].play();
-                        powSoundIndex++;
-                        if (powSoundIndex >= powSounds.length) powSoundIndex = 0;
 
                         break;
                     }
