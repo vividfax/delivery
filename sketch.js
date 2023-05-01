@@ -322,5 +322,5 @@ function displayResetButton() {
     fill(palette.white);
     textSize()
     text("[x] restart", width/2, height/2-45);
-    text("[b] sandbox mode", width/2, height/2+35);
+    text("[b] endless mode", width/2, height/2+35);
 }
