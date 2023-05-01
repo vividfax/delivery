@@ -5,6 +5,7 @@ let palette = {
     white: "#FFEBD6",
     light: "#93A8A4",
     light2: "#8EA4A0",
+    shadow: "#77928D",
     mid: "#FFBF00",
     dead: "#7B6355",
     dark: "#6000CD",
@@ -23,6 +24,8 @@ let worldHeight = 2000;
 let numberOfShapes = 5;
 
 let noiseLayers = [];
+let shadowLayer;
+let shapeLayer;
 
 let score = 0;
 
@@ -53,6 +56,18 @@ function setup() {
     strokeJoin(ROUND);
 
     createBackgrounds();
+    shadowLayer = createGraphics(width, height);
+    shapeLayer = createGraphics(width, height);
+
+    shadowLayer.noStroke();
+    shadowLayer.angleMode(DEGREES);
+    shadowLayer.rectMode(CENTER);
+
+    shapeLayer.noStroke();
+    shapeLayer.angleMode(DEGREES);
+    shapeLayer.rectMode(CENTER);
+    shapeLayer.textAlign(CENTER, CENTER);
+    shapeLayer.strokeJoin(ROUND);
 
     setupController();
 
@@ -67,11 +82,20 @@ function draw() {
     buttonsPressed();
     stickMoved();
 
+    shadowLayer.clear();
+    shapeLayer.clear();
+
     image(noiseLayers[int(frameCount/10)%noiseLayers.length], 0, 0);
 
     push();
     translate(-player.x, -player.y);
     translate(-player.cameraX, -player.cameraY);
+    shadowLayer.push();
+    shadowLayer.translate(-player.x, -player.y);
+    shadowLayer.translate(-player.cameraX, -player.cameraY);
+    shapeLayer.push();
+    shapeLayer.translate(-player.x, -player.y);
+    shapeLayer.translate(-player.cameraX, -player.cameraY);
 
     for (let i = 0; i < mines.length; i++) {
         mines[i].update();
@@ -87,16 +111,25 @@ function draw() {
 
     for (let i = 0; i < shapes.length; i++) {
         pegs[i].update();
-        pegs[i].display();
+        if (pegs[i].dead) pegs[i].display();
+    }
+
+    player.update();
+    player.display();
+
+    for (let i = 0; i < shapes.length; i++) {
+        if (!pegs[i].dead) pegs[i].display();
     }
 
     if (player.pegNumber >= 0) pegs[player.pegNumber].display();
     if (!countingTime && !sandboxMode) holes[0].display();
 
-    player.update();
-    player.display();
-
     pop();
+    shadowLayer.pop();
+    shapeLayer.pop();
+
+    image(shadowLayer, 0, 0);
+    image(shapeLayer, 0, 0);
 
     if (!sandboxMode  && score != 0 && countingTime == true) {
 

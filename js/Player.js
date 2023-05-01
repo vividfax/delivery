@@ -180,13 +180,13 @@ class Player {
 
         if (this.pegNumber >= 0) return;
 
-        push();
-        translate(width/2, height/2);
+        shapeLayer.push();
+        shapeLayer.translate(width/2, height/2);
 
-        fill(palette.dark);
+        shapeLayer.fill(palette.dark);
         this.wobblyCircle.display();
 
-        pop();
+        shapeLayer.pop();
     }
 }
 
@@ -240,30 +240,30 @@ class WobblyCircle {
 
         if (radius <= 0) return;
 
-        push();
-        translate(player.x, player.y);
-        translate(this.x + offsetX, this.y + offsetY);
-        angleMode(DEGREES);
-        noStroke();
-        fill(colour);
+        shapeLayer.push();
+        shapeLayer.translate(player.x, player.y);
+        shapeLayer.translate(this.x + offsetX, this.y + offsetY);
+        shapeLayer.angleMode(DEGREES);
+        shapeLayer.noStroke();
+        shapeLayer.fill(colour);
 
-        beginShape();
+        shapeLayer.beginShape();
 
         for (let i = 0; i < 2; i++) {
 
-            curveVertex(0, -radius+this.offsets[0]);
-            curveVertex(radius*.7+this.offsets[1], -radius*.7+this.offsets[2]);
-            curveVertex(radius+this.offsets[3], 0);
-            curveVertex(radius*.7+this.offsets[4], radius*.7+this.offsets[5]);
-            curveVertex(0, radius+this.offsets[6]);
-            curveVertex(-radius*.7+this.offsets[7], radius*.7+this.offsets[8]);
-            curveVertex(-radius+this.offsets[9], 0);
-            curveVertex(-radius*.7+this.offsets[10], -radius*.7+this.offsets[11]);
+            shapeLayer.curveVertex(0, -radius+this.offsets[0]);
+            shapeLayer.curveVertex(radius*.7+this.offsets[1], -radius*.7+this.offsets[2]);
+            shapeLayer.curveVertex(radius+this.offsets[3], 0);
+            shapeLayer.curveVertex(radius*.7+this.offsets[4], radius*.7+this.offsets[5]);
+            shapeLayer.curveVertex(0, radius+this.offsets[6]);
+            shapeLayer.curveVertex(-radius*.7+this.offsets[7], radius*.7+this.offsets[8]);
+            shapeLayer.curveVertex(-radius+this.offsets[9], 0);
+            shapeLayer.curveVertex(-radius*.7+this.offsets[10], -radius*.7+this.offsets[11]);
         }
 
-        endShape(CLOSE);
+        shapeLayer.endShape(CLOSE);
 
-        pop();
+        shapeLayer.pop();
     }
 }
 

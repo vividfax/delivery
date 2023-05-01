@@ -125,24 +125,24 @@ class Hole {
         if (this.y + y > middleY + height/2 + 200) return;
         if (this.y + y < middleY - height/2 - 200) return;
 
-        push();
-        translate(x, y);
+        shapeLayer.push();
+        shapeLayer.translate(x, y);
 
-        push();
-        translate(width/2, height/2);
-        translate(this.x, this.y);
-        if (this.solved) rotate(sin(frameCount+this.rotateOffset) * 10);
+        shapeLayer.push();
+        shapeLayer.translate(width/2, height/2);
+        shapeLayer.translate(this.x, this.y);
+        if (this.solved) shapeLayer.rotate(sin(frameCount+this.rotateOffset) * 10);
 
         if (this.number == 0) {
 
-            push();
-            fill(palette.dark);
-            strokeWeight(30);
-            stroke(palette.white);
-            textFont(scoreFont);
-            textSize(90);
-            text(score, 0, 0);
-            pop();
+            shapeLayer.push();
+            shapeLayer.fill(palette.dark);
+            shapeLayer.strokeWeight(30);
+            shapeLayer.stroke(palette.white);
+            shapeLayer.textFont(scoreFont);
+            shapeLayer.textSize(90);
+            shapeLayer.text(score, 0, 0);
+            shapeLayer.pop();
 
         } else {
 
@@ -162,9 +162,9 @@ class Hole {
             }
         }
 
-        pop();
+        shapeLayer.pop();
 
-        pop();
+        shapeLayer.pop();
 
         if (this.partyOn && !this.partyDone) {
             this.party.display(x, y);
@@ -173,14 +173,14 @@ class Hole {
 
     displayShape(shape, tier) {
 
-        push();
-        scale(this.scale);
-        translate(shape[0], shape[1]);
-        rotate(shape[5]);
+        shapeLayer.push();
+        shapeLayer.scale(this.scale);
+        shapeLayer.translate(shape[0], shape[1]);
+        shapeLayer.rotate(shape[5]);
 
         this.displayRings(shape, tier);
 
-        pop();
+        shapeLayer.pop();
     }
 
     displayRings(shape, tier) {
@@ -189,14 +189,14 @@ class Hole {
 
             let s = 1 - tier*0.2;
 
-            scale(s);
-            fill(this.randoms[this.randomInt], this.randoms[this.randomInt+1], this.randoms[this.randomInt+2]);
+            shapeLayer.scale(s);
+            shapeLayer.fill(this.randoms[this.randomInt], this.randoms[this.randomInt+1], this.randoms[this.randomInt+2]);
 
-            if (tier == 0) fill(palette.white);
+            if (tier == 0) shapeLayer.fill(palette.white);
 
         } else {
-            fill(palette.black);
+            shapeLayer.fill(palette.black);
         }
-        rect(0, 0, shape[2], shape[3], shape[4]);
+        shapeLayer.rect(0, 0, shape[2], shape[3], shape[4]);
     }
 }

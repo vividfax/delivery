@@ -87,18 +87,34 @@ class Peg {
 
         push();
         translate(x, y);
+        shadowLayer.push();
+        shadowLayer.translate(x, y);
+        shapeLayer.push();
+        shapeLayer.translate(x, y);
 
         push();
         translate(width/2, height/2);
         translate(this.x, this.y);
-        fill(palette.mid);
-        if (this.dead) fill(palette.dead);
-        if (player.pegNumber == this.number) fill(palette.dark);
+        shadowLayer.push();
+        shadowLayer.translate(width/2, height/2);
+        shadowLayer.translate(this.x, this.y);
+        shapeLayer.push();
+        shapeLayer.translate(width/2, height/2);
+        shapeLayer.translate(this.x, this.y);
+
+        this.displayShape(this.shapes.first, true);
+        this.displayShape(this.shapes.second, true);
+        this.displayShape(this.shapes.third, true);
+
+        shapeLayer.fill(palette.mid);
+        if (this.dead) shapeLayer.fill(palette.dead);
+        if (player.pegNumber == this.number) shapeLayer.fill(palette.dark);
+
         this.displayShape(this.shapes.first);
         this.displayShape(this.shapes.second);
         this.displayShape(this.shapes.third);
 
-        scale(this.scale);
+        shapeLayer.scale(this.scale);
 
         if (this.numberOfEyes == 1) {
             this.displayEye(x, y, 0);
@@ -108,41 +124,57 @@ class Peg {
         }
 
         pop();
+        shadowLayer.pop();
+        shapeLayer.pop();
 
         pop();
+        shadowLayer.pop();
+        shapeLayer.pop();
     }
 
-    displayShape(shape) {
+    displayShape(shape, shadow) {
 
-        push();
-        scale(this.scale);
-        if (!this.dead) translate(shape[0], shape[1] + sin(frameCount+this.sighOffset) * 10);
-        else translate(shape[0], shape[1]);
-        rotate(shape[5]);
-        rect(0, 0, shape[2], shape[3], shape[4]);
-        pop();
+        if (shadow && !this.dead) {
+
+            shadowLayer.push();
+            shadowLayer.scale(this.scale);
+            shadowLayer.translate(shape[0], shape[1]+30);
+            shadowLayer.rotate(shape[5]);
+            shadowLayer.fill(palette.shadow);
+            shadowLayer.rect(0, 0, shape[2], shape[3], shape[4]);
+            shadowLayer.pop();
+            return
+        }
+
+        shapeLayer.push();
+        shapeLayer.scale(this.scale);
+        if (!this.dead) shapeLayer.translate(shape[0], shape[1] + sin(frameCount+this.sighOffset) * 10);
+        else shapeLayer.translate(shape[0], shape[1]);
+        shapeLayer.rotate(shape[5]);
+        shapeLayer.rect(0, 0, shape[2], shape[3], shape[4]);
+        shapeLayer.pop();
     }
 
     displayEye(x, y, xOffset) {
 
         if (this.blink) { // blink
-            fill(palette.mid);
-            if (player.pegNumber == this.number) fill(palette.dark);
-            ellipse(xOffset, 0, 60);
-            fill(palette.black);
-            rect(xOffset, 0, 60, 5, 60);
+            shapeLayer.fill(palette.mid);
+            if (player.pegNumber == this.number) shapeLayer.fill(palette.dark);
+            shapeLayer.ellipse(xOffset, 0, 60);
+            shapeLayer.fill(palette.black);
+            shapeLayer.rect(xOffset, 0, 60, 5, 60);
             // rect(-20, 10, 5, 20, 60);
             // rect(0, 10, 5, 20, 60);
             // rect(20, 10, 5, 20, 60);
             return;
         } else if (this.dead) {
-            fill(palette.dead);
-            ellipse(xOffset, 0, 60);
-            stroke(palette.black);
-            strokeWeight(5);
-            line(xOffset-20, -20, xOffset+20, 20);
-            line(xOffset-20, 20, xOffset+20, -20);
-            noStroke();
+            shapeLayer.fill(palette.dead);
+            shapeLayer.ellipse(xOffset, 0, 60);
+            shapeLayer.stroke(palette.black);
+            shapeLayer.strokeWeight(5);
+            shapeLayer.line(xOffset-20, -20, xOffset+20, 20);
+            shapeLayer.line(xOffset-20, 20, xOffset+20, -20);
+            shapeLayer.noStroke();
             return;
         }
 
@@ -164,13 +196,13 @@ class Peg {
 
         if (player.pegNumber == this.number) vec = createVector(player.velocityX, player.velocityY).normalize().mult(8);
 
-        fill(palette.white);
-        ellipse(xOffset, 0, 60);
+        shapeLayer.fill(palette.white);
+        shapeLayer.ellipse(xOffset, 0, 60);
 
-        push();
-        translate(vec.x, vec.y);
-        fill(palette.black);
-        ellipse(xOffset, 0, 45);
-        pop();
+        shapeLayer.push();
+        shapeLayer.translate(vec.x, vec.y);
+        shapeLayer.fill(palette.black);
+        shapeLayer.ellipse(xOffset, 0, 45);
+        shapeLayer.pop();
     }
 }

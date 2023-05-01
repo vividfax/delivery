@@ -60,13 +60,13 @@ class Mine {
         if (this.y + y > middleY + height/2 + 200) return;
         if (this.y + y < middleY - height/2 - 200) return;
 
-        push();
-        translate(x, y);
+        shapeLayer.push();
+        shapeLayer.translate(x, y);
 
-        push();
-        translate(width/2, height/2);
-        translate(this.x, this.y);
-        rotate(this.rotation);
+        shapeLayer.push();
+        shapeLayer.translate(width/2, height/2);
+        shapeLayer.translate(this.x, this.y);
+        shapeLayer.rotate(this.rotation);
 
         let colour = lerpColor(this.colours[this.colourLerp], this.colours[this.colourLerp+1], this.colourLerpPercent);
         this.colourLerpPercent += 0.02;
@@ -76,38 +76,38 @@ class Mine {
             if (this.colourLerp >= 4) this.colourLerp = 0;
         }
 
-        fill(colour);
+        shapeLayer.fill(colour);
         star(0, 0, this.radius + sin(frameCount+this.breatheOffset)*this.radius/5, this.radius*0.8 + sin(frameCount+this.breatheOffset)*this.radius/15, 32);
 
         // if (player.pegNumber >= 0) {
-            stroke(palette.black);
-            strokeWeight(this.radius*.2);
-            fill(palette.white);
-            textFont(comicFont);
-            textSize(this.radius*.7);
-            text(this.word, 0, 0);
+            shapeLayer.stroke(palette.black);
+            shapeLayer.strokeWeight(this.radius*.2);
+            shapeLayer.fill(palette.white);
+            shapeLayer.textFont(comicFont);
+            shapeLayer.textSize(this.radius*.7);
+            shapeLayer.text(this.word, 0, 0);
         // }
 
-        pop();
+        shapeLayer.pop();
 
-        pop();
+        shapeLayer.pop();
     }
 }
 
 function star(x, y, radius1, radius2, npoints) {
 
-    angleMode(RADIANS);
+    shapeLayer.angleMode(RADIANS);
     let angle = TWO_PI / npoints;
     let halfAngle = angle / 2.0;
-    beginShape();
+    shapeLayer.beginShape();
     for (let a = 0; a < TWO_PI; a += angle) {
-        let sx = x + cos(a) * radius2;
-        let sy = y + sin(a) * radius2;
-        vertex(sx, sy);
-        sx = x + cos(a + halfAngle) * radius1;
-        sy = y + sin(a + halfAngle) * radius1;
-        vertex(sx, sy);
+        let sx = x + shapeLayer.cos(a) * radius2;
+        let sy = y + shapeLayer.sin(a) * radius2;
+        shapeLayer.vertex(sx, sy);
+        sx = x + shapeLayer.cos(a + halfAngle) * radius1;
+        sy = y + shapeLayer.sin(a + halfAngle) * radius1;
+        shapeLayer.vertex(sx, sy);
     }
-    endShape(CLOSE);
-    angleMode(DEGREES);
+    shapeLayer.endShape(CLOSE);
+    shapeLayer.angleMode(DEGREES);
 }
