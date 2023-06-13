@@ -154,21 +154,21 @@ class Player {
 
         if (moveX) {
             this.x += this.velocityX;
-            this.cameraX -= this.velocityX;
+            // this.cameraX += this.velocityX;
         }
 
         if (moveY) {
             this.y += this.velocityY;
-            this.cameraY -= this.velocityY;
+            // this.cameraY += this.velocityY;
         }
 
-        if (this.cameraX > width/4 || this.cameraX < -width/4) {
-            this.cameraX += this.velocityX;
-        }
+        // if (this.cameraX > width/14 || this.cameraX < -width/14) {
+        //     this.cameraX -= this.velocityX;
+        // }
 
-        if (this.cameraY > height/4 || this.cameraY < -height/4) {
-            this.cameraY += this.velocityY;
-        }
+        // if (this.cameraY > height/14 || this.cameraY < -height/14) {
+        //     this.cameraY -= this.velocityY;
+        // }
 
         this.velocityX *= 0.95;
         this.velocityY *= 0.95;
