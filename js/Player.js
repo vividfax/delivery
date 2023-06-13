@@ -170,6 +170,9 @@ class Player {
         //     this.cameraY -= this.velocityY;
         // }
 
+        this.cameraX = 0;
+        this.cameraY = 0;
+
         this.velocityX *= 0.95;
         this.velocityY *= 0.95;
 
