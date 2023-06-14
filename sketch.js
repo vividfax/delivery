@@ -39,6 +39,7 @@ let timeCount = 0;
 let countingTime = true;
 
 let sandboxMode = false;
+let menuOpen = false;
 
 let music;
 let bounceSounds = [];
@@ -47,7 +48,7 @@ let powDeadSounds = [];
 let powSounds = [];
 let pickupSounds = [];
 let countdownSounds = [];
-let buttonPressSound;
+let buttonPressSounds = [];
 let gameOverSound;
 
 let bounceSoundIndex = 0;
@@ -56,6 +57,7 @@ let powDeadSoundIndex = 0;
 let powSoundIndex = 0;
 let pickupSoundIndex = 0;
 let pickupSoundIndexIndex = 0;
+let buttonPressSoundIndex = 0;
 
 let interacted = false;
 
@@ -68,7 +70,6 @@ function preload() {
     music.loop = true;
     music.volume = 0.9;
 
-    buttonPressSound = new Audio("./audio/ButtonPress.wav");
     gameOverSound = new Audio("./audio/GAMEOVER.wav");
 
     for (let i = 0; i < 6; i++) {
@@ -76,6 +77,7 @@ function preload() {
         placeSounds.push(new Audio("./audio/Block_Place.wav"));
         powDeadSounds.push(new Audio("./audio/Block_POW.wav"));
         powSounds.push(new Audio("./audio/Block_POW_NoDeath.wav"));
+        buttonPressSounds.push(new Audio("./audio/ButtonPress.wav"));
     }
 
     for (let i = 0; i < 4; i++) {
@@ -199,6 +201,12 @@ function draw() {
 
     displayTimer();
     if (!countingTime) displayResetButton();
+    else if (menuOpen) menuOpen = false;
+
+    if (sandboxMode && !menuOpen && (aButtonPressed(3) || keyIsDown(89))) {
+        countingTime = false;
+        playButtonPressSound();
+    }
 }
 
 function newGame() {
@@ -309,13 +317,19 @@ function displayTimer() {
 
 function displayResetButton() {
 
+    if (!menuOpen) menuOpen = true;
+
     if (aButtonPressed(2) || keyIsDown(88)) {
         newGame();
-        buttonPressSound.play();
+        playButtonPressSound();
+        if (sandboxMode) sandboxMode = false;
     } else if (aButtonPressed(1) || keyIsDown(66)) {
-        newGame();
-        sandboxMode = true;
-        buttonPressSound.play();
+        if (!sandboxMode) {
+            newGame();
+            sandboxMode = true;
+        }
+        countingTime = true;
+        playButtonPressSound();
     }
 
     fill(palette.black);
@@ -324,4 +338,11 @@ function displayResetButton() {
     textSize()
     text("[x] restart", width/2, height/2-45);
     text("[b] endless mode", width/2, height/2+35);
+}
+
+function playButtonPressSound() {
+
+    buttonPressSounds[buttonPressSoundIndex].play();
+    buttonPressSoundIndex++;
+    if (buttonPressSoundIndex >= buttonPressSounds.length) buttonPressSoundIndex = 0;
 }

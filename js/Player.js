@@ -37,9 +37,13 @@ class Player {
             this.y = lerp(this.y, height/2, 0.05);
             this.cameraX = lerp(this.cameraX, 0, 0.05);
             this.cameraY = lerp(this.cameraY, height/5, 0.05);
+            this.velocityX = 0;
+            this.velocityY = 0;
             this.wobblyCircle.update();
             return;
         }
+
+        if (menuOpen) return;
 
         let moveX = true;
         let moveY = true;
@@ -170,8 +174,8 @@ class Player {
         //     this.cameraY -= this.velocityY;
         // }
 
-        this.cameraX = 0;
-        this.cameraY = 0;
+        this.cameraX = lerp(this.cameraX, 0, 0.1);
+        this.cameraY = lerp(this.cameraY, 0, 0.1);
 
         this.velocityX *= 0.95;
         this.velocityY *= 0.95;
