@@ -203,13 +203,19 @@ function draw() {
     if (!countingTime) displayResetButton();
     else if (menuOpen) menuOpen = false;
 
-    if (sandboxMode && !menuOpen && (aButtonPressed(3) || keyIsDown(89))) {
+    if (sandboxMode && !menuOpen && (
+        aButtonPressed(3) || keyIsDown(89) //y
+        || keyIsDown(27) //esc
+    )) {
         countingTime = false;
         playButtonPressSound();
     }
 }
 
 function newGame() {
+
+    player.x = width/2;
+    player.y = height/2;
 
     // player = new Player();
     shapes = [];
